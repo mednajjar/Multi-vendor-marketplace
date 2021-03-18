@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/mednajjar/Multi-vendor-marketplace#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "express": "^4.17.1",
     "joi": "^17.4.0",
     "jsonwebtoken": "^8.5.1",
