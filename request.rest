@@ -1,11 +1,12 @@
 GET http://localhost:3500/api/admin/users
+
 ###
 POST http://localhost:3500/api/admin/add
 Content-Type: application/json
 
 {
-    "userName":"rida",
-    "email":"rida@example.com",
+    "userName":"mouad",
+    "email":"mouad@example.com",
     "roles": "livreur",
     "password":"azerty"
 }
@@ -23,13 +24,15 @@ Content-Type: application/json
 DELETE http://localhost:3500/api/admin/delete/605385edb5ccf05870ff69c1
 
 ###
-GET http://localhost:3500/api/admin/user/605385edb5ccf05870ff69c1
+GET http://localhost:3500/api/admin/user/60538696de3f877024768fed
 
 ###
 POST http://localhost:3500/api/admin/login
 Content-Type: application/json
 
 {
-    "email":"rida@example.com",
+    "email":"ahmed@ahmed.com",
     "password":"azerty"
 }
+###
+GET http://localhost:3500/api/admin/logout

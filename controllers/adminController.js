@@ -3,8 +3,9 @@ const {userValidation, loginValidation} = require('../validation/validationForms
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+
 exports.getUsers = async (req, res)=>{
-    const user = await User.find();
+    const user = await User.find().select('-password');
     if(user.length < 1) return res.status(404).json({message: 'No user found!'});
     return res.status(200).json(user);
 }
@@ -58,7 +59,7 @@ exports.deleteUser = async (req, res)=>{
 
 exports.getUser = async (req, res)=>{
     try {
-        const getUser = await User.findOne({_id: req.params.id});
+        const getUser = await User.findOne({_id: req.params.id}).select('-password');
         if(!getUser) return res.status(404).json({message: 'User not found!'});  
         return res.status(200).json({getUser});
     } catch (error) {
@@ -79,10 +80,21 @@ exports.loginAdmin = async (req, res)=>{
         const match = await bcrypt.compare(req.body.password, user.password);
         if(!match) return res.status(400).json({err: 'Invalid email or password'});
         if(user.roles != 'admin') return res.status(400).json({err: 'You are not allowed to access this page'});
-        const token = jwt.sign({id: user._id}, process.env.TOKEN_SECRET, {expiresIn: '1h'});
-        res.header('auth-token', token);
+        const token = jwt.sign({userInfo: user._id}, process.env.TOKEN_SECRET, {expiresIn: '1h'});
+        res.cookie('auth-token', token, {httpOnly: true});
         return res.status(200).json({success: 'welcome to dashboard admin'});
     } catch (err) {
         res.status(500).json({error: 'bad request'});
     }
+}
+
+exports.logout = (req, res, next) => {
+    try {
+        res.cookie('auth-token', {}, {maxAge: 0});
+        res.status(200).json({message: 'You are loged out'});
+        next();
+    } catch (error) {
+        throw error;
+    }
+    
 }
