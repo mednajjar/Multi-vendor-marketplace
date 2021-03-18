@@ -1,0 +1,35 @@
+GET http://localhost:3500/api/admin/users
+###
+POST http://localhost:3500/api/admin/add
+Content-Type: application/json
+
+{
+    "userName":"rida",
+    "email":"rida@example.com",
+    "roles": "livreur",
+    "password":"azerty"
+}
+###
+PUT http://localhost:3500/api/admin/update/605385edb5ccf05870ff69c1
+Content-Type: application/json
+
+{
+    "userName":"medox",
+    "email":"med@example.com",
+    "roles": "admin",
+    "password":"azerty"
+}
+###
+DELETE http://localhost:3500/api/admin/delete/605385edb5ccf05870ff69c1
+
+###
+GET http://localhost:3500/api/admin/user/605385edb5ccf05870ff69c1
+
+###
+POST http://localhost:3500/api/admin/login
+Content-Type: application/json
+
+{
+    "email":"rida@example.com",
+    "password":"azerty"
+}
