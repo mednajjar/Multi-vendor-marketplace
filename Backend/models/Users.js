@@ -2,9 +2,6 @@ const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 
 const userSchema = mongoose.Schema({
-    userName: { type: String, 
-        required: true
-    },
     email: { 
         type: String,
         unique: true,
@@ -14,13 +11,11 @@ const userSchema = mongoose.Schema({
         required: true
     },
     roles: {
-        type: [{
-            type: String,
-            enum: ['vendeur','livreur' ,'admin'],
-            required: true
-        }],
-        
+        type: String,   
+        enum: ['vendeur','livreur' ,'admin', 'customer'],  
+        default: 'customer'
     },
+    
 })
 userSchema.plugin(uniqueValidator);
 
